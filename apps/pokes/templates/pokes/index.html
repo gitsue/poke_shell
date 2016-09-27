@@ -5,6 +5,29 @@
 	</head>
 	<body>
 		<h1>Hello, {{curr_user.user_name}}!</h1>
+		<h4>You have been poked by {{curr_user.pokee.count}} user/s</h4>
+		{% for poke in curr_user.pokee.all %}
+		<h4>{{poke.poker.user_name}} poked you {{poke.count}} time/s!</h4>
+		{% endfor %}
 		<p><a href="{% url 'logout' %}">Log out</a></p>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Poke Count</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+				<tr>
+					<td>{{user.user_name}}</td>
+					<td>{{user.total_count}}</td>
+					<td><a href="{% url 'add_poke' user.id %}">Poke!</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
 	</body>
 </html>
